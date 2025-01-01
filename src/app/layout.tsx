@@ -40,7 +40,7 @@ export const metadata: Metadata = {
 		url: "https://quoting-app-puce.vercel.app",
 		title: "Quoter - Quick Quote Search for Literary Analysis",
 		description:
-			"Making literary analysis easier and more efficient for students and teachers with smart quote search and organization tools.",
+			"Making literary analysis easier and more efficient for students and teachers with quick quote search.",
 		siteName: "Quoter",
 		images: [
 			{
@@ -56,6 +56,7 @@ export const metadata: Metadata = {
 		title: "Quoter - Smart Quote Search for Literary Analysis",
 		description:
 			"Making literary analysis easier and more efficient for students and teachers with quick quote search.",
+		images: ["https://quoting-app-puce.vercel.app/landscape.png"],
 	},
 	applicationName: "Quoter",
 	generator: "Next.js",
