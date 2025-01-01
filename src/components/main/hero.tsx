@@ -192,7 +192,7 @@ export default function Hero() {
 
 					{/* SVG Illustration */}
 					<motion.div
-						className="w-full max-w-[350px] max-w-xl mx-auto"
+						className="w-full max-w-[300px] lg:max-w-none max-w-xl mx-auto"
 						initial={{ opacity: 0, scale: 0.95 }}
 						animate={{ opacity: 1, scale: 1 }}
 						transition={{ duration: 0.5, delay: 0.2 }}
