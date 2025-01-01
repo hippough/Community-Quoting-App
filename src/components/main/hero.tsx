@@ -190,7 +190,6 @@ export default function Hero() {
 						</div>
 					</motion.div>
 
-					{/* SVG Illustration */}
 					<motion.div
 						className="w-full max-w-[300px] lg:max-w-none max-w-xl mx-auto"
 						initial={{ opacity: 0, scale: 0.95 }}
