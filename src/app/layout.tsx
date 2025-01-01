@@ -66,7 +66,6 @@ export const metadata: Metadata = {
 	},
 };
 
-// JSON-LD for rich search results
 const jsonLd = {
 	"@context": "https://schema.org",
 	"@type": "WebApplication",
