@@ -26,9 +26,6 @@ export default function LoginButton() {
 				toast.error(res.error.message || "Failed to sign in with Google");
 				return;
 			}
-
-			// Note: The success toast might not be seen because of the redirect
-			toast.success("Successfully signed in!");
 		} catch (error) {
 			console.log(error);
 			toast.error("Something went wrong, please try again later.");

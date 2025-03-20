@@ -42,6 +42,7 @@ export default function QuoteSearch({ text }: { text: Text }) {
 	const [relatedSearchTerms, setRelatedSearchTerms] = useState(false);
 	const [unlimited, setUnlimited] = useState(false);
 	const [maxResults, setMaxResults] = useState(25);
+	const [strictSearch, setStrictSearch] = useState(false);
 
 	// for the click
 	const [isClickSearch, setIsClickSearch] = useState(false);
@@ -62,8 +63,19 @@ export default function QuoteSearch({ text }: { text: Text }) {
 		const matchedIndices: number[] = [];
 
 		sentences.forEach((sentence, index) => {
-			if (sentence.toLowerCase().includes(searchTerm)) {
-				matchedIndices.push(index);
+			if (strictSearch) {
+				// Strict search: match only whole words
+				const words = sentence.toLowerCase().match(/\b\w+\b/g) || [];
+				// Convert words array to string[] type to satisfy TypeScript
+				const wordStrings: string[] = words.map((word) => word.toString());
+				if (wordStrings.includes(searchTerm)) {
+					matchedIndices.push(index);
+				}
+			} else {
+				// Regular search: match substrings
+				if (sentence.toLowerCase().includes(searchTerm)) {
+					matchedIndices.push(index);
+				}
 			}
 		});
 
@@ -127,10 +139,9 @@ export default function QuoteSearch({ text }: { text: Text }) {
 				}
 			});
 
-			// Convert Set to Array and log
+			// Convert Set to Array
 			const uniqueSynonyms = Array.from(synonyms);
 
-			// You can now set these to state
 			return uniqueSynonyms;
 		} catch (error) {
 			console.error("Error fetching related terms:", error);
@@ -151,10 +162,17 @@ export default function QuoteSearch({ text }: { text: Text }) {
 			const sentenceLower = sentence.toLowerCase();
 			synonyms.forEach((synonym) => {
 				// If we haven't found a quote for this term yet
-				if (
-					!results.some((r) => r.term === synonym) &&
-					sentenceLower.includes(synonym.toLowerCase())
-				) {
+				// Handle strict search by properly typing the word array
+				let foundMatch: boolean;
+				if (strictSearch) {
+					const words = sentence.toLowerCase().match(/\b\w+\b/g) || [];
+					const wordStrings: string[] = words.map((word) => word.toString());
+					foundMatch = wordStrings.includes(synonym.toLowerCase());
+				} else {
+					foundMatch = sentenceLower.includes(synonym.toLowerCase());
+				}
+
+				if (!results.some((r) => r.term === synonym) && foundMatch) {
 					// Get context for this match
 					const start = Math.max(0, index - contextSize);
 					const end = Math.min(sentences.length, index + contextSize + 1);
@@ -226,13 +244,7 @@ export default function QuoteSearch({ text }: { text: Text }) {
 									className="w-full"
 								/>
 							</div>
-							<div className="flex items-center justify-between space-x-2">
-								<Label>Related Search Terms</Label>
-								<Switch
-									checked={relatedSearchTerms}
-									onCheckedChange={setRelatedSearchTerms}
-								/>
-							</div>
+
 							<div className="flex items-center justify-between space-x-2">
 								<Label>Unlimited Results</Label>
 								<Switch checked={unlimited} onCheckedChange={setUnlimited} />
@@ -254,6 +266,21 @@ export default function QuoteSearch({ text }: { text: Text }) {
 									/>
 								</div>
 							)}
+							<div className="flex items-center justify-between space-x-2">
+								<Label>Related Search Terms</Label>
+								<Switch
+									checked={relatedSearchTerms}
+									onCheckedChange={setRelatedSearchTerms}
+								/>
+							</div>
+
+							<div className="flex items-center justify-between space-x-2">
+								<Label>Strict Word Search</Label>
+								<Switch
+									checked={strictSearch}
+									onCheckedChange={setStrictSearch}
+								/>
+							</div>
 						</div>
 					</DropdownMenuContent>
 				</DropdownMenu>
