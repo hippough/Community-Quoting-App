@@ -42,13 +42,11 @@ const Step = ({ step, index }: { step: (typeof steps)[0]; index: number }) => {
 			viewport={{ once: true }}
 			className="relative"
 		>
-			{/* Connection Line */}
 			{index < steps.length - 1 && (
 				<div className="hidden lg:block absolute top-10 left-[50%] w-[255px] h-[2px] bg-border" />
 			)}
 
 			<div className="relative flex flex-col items-center text-center">
-				{/* Icon */}
 				<motion.div
 					whileHover={{ scale: 1.1, rotate: 5 }}
 					className="size-20 rounded-full bg-primary/10 flex items-center justify-center mb-4 relative"
@@ -59,7 +57,6 @@ const Step = ({ step, index }: { step: (typeof steps)[0]; index: number }) => {
 					</div>
 				</motion.div>
 
-				{/* Content */}
 				<h3 className="text-xl font-semibold mb-2">{step.title}</h3>
 				<p className="text-muted-foreground max-w-xs">{step.description}</p>
 			</div>

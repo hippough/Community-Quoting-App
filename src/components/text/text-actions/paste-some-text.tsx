@@ -10,7 +10,7 @@ import {
 	DialogFooter,
 	DialogHeader,
 	DialogTitle
-} from "@/components/ui/dialog"; // Adjust import path based on your setup
+} from "@/components/ui/dialog";
 import {
 	Form,
 	FormControl,

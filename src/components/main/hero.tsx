@@ -36,7 +36,7 @@ const HeroIllustration = () => (
 			</linearGradient>
 		</defs>
 
-		{/* Main Book */}
+		{/* book */}
 		<rect
 			x="150"
 			y="100"
@@ -55,7 +55,7 @@ const HeroIllustration = () => (
 			fill="hsl(var(--background))"
 		/>
 
-		{/* Text Lines */}
+		{/* text lines */}
 		<g className="fill-primary" opacity="0.3">
 			<rect x="180" y="140" width="140" height="4" rx="2" />
 			<rect x="180" y="160" width="120" height="4" rx="2" />
@@ -64,7 +64,7 @@ const HeroIllustration = () => (
 			<rect x="180" y="220" width="140" height="4" rx="2" />
 		</g>
 
-		{/* Floating Elements */}
+		{/* decorations */}
 		<circle cx="100" cy="150" r="20" className="fill-primary" opacity="0.2">
 			<animate
 				attributeName="cy"
@@ -90,9 +90,9 @@ const HeroIllustration = () => (
 			/>
 		</circle>
 
-		{/* Magnifying Glass */}
+		{/* magnifying glass */}
 		<g>
-			{/* Handle */}
+			{/* handle */}
 			<line
 				x1="280"
 				y1="170"
@@ -111,7 +111,7 @@ const HeroIllustration = () => (
 				/>
 			</line>
 
-			{/* Glass Circle */}
+			{/* glass */}
 			<circle
 				cx="270"
 				cy="160"
@@ -129,7 +129,7 @@ const HeroIllustration = () => (
 				/>
 			</circle>
 
-			{/* Highlight Effect */}
+			{/* highlight */}
 			<rect
 				x="180"
 				y="160"
@@ -155,7 +155,6 @@ export default function Hero() {
 		<Section className="min-h-screen flex items-center bg-background">
 			<Container>
 				<div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-center">
-					{/* Text Content */}
 					<motion.div
 						className="text-center lg:text-left"
 						initial={{ opacity: 0, y: 20 }}

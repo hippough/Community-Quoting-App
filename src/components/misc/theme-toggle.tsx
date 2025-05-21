@@ -10,7 +10,6 @@ export default function ThemeToggle() {
 	const { setTheme, theme } = useTheme();
 	const [mounted, setMounted] = useState(false);
 
-	// Avoid hydration mismatch
 	useEffect(() => {
 		setMounted(true);
 	}, []);
@@ -26,7 +25,6 @@ export default function ThemeToggle() {
 			onClick={() => setTheme(theme === "light" ? "dark" : "light")}
 			className="relative"
 		>
-			{/* Sun icon */}
 			<motion.div
 				initial={{ scale: 0, rotate: 90 }}
 				animate={{
@@ -39,7 +37,6 @@ export default function ThemeToggle() {
 				<Sun className="h-5 w-5" />
 			</motion.div>
 
-			{/* Moon icon */}
 			<motion.div
 				initial={{ scale: 0, rotate: -90 }}
 				animate={{
@@ -52,7 +49,6 @@ export default function ThemeToggle() {
 				<Moon className="h-5 w-5" />
 			</motion.div>
 
-			{/* Hidden text for accessibility */}
 			<span className="sr-only">Toggle theme</span>
 		</Button>
 	);

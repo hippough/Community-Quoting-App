@@ -8,7 +8,7 @@ export default function LoginButton() {
 	const supabase = createClient();
 
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-		e.preventDefault(); // Prevent default form submission
+		e.preventDefault();
 
 		try {
 			const res = await supabase.auth.signInWithOAuth({

@@ -44,7 +44,6 @@ export default function QuoteSearch({ text }: { text: Text }) {
 	const [maxResults, setMaxResults] = useState(25);
 	const [strictSearch, setStrictSearch] = useState(false);
 
-	// for the click
 	const [isClickSearch, setIsClickSearch] = useState(false);
 
 	useEffect(() => {
@@ -64,15 +63,14 @@ export default function QuoteSearch({ text }: { text: Text }) {
 
 		sentences.forEach((sentence, index) => {
 			if (strictSearch) {
-				// Strict search: match only whole words
+				// match whole words
 				const words = sentence.toLowerCase().match(/\b\w+\b/g) || [];
-				// Convert words array to string[] type to satisfy TypeScript
+
 				const wordStrings: string[] = words.map((word) => word.toString());
 				if (wordStrings.includes(searchTerm)) {
 					matchedIndices.push(index);
 				}
 			} else {
-				// Regular search: match substrings
 				if (sentence.toLowerCase().includes(searchTerm)) {
 					matchedIndices.push(index);
 				}
@@ -117,6 +115,7 @@ export default function QuoteSearch({ text }: { text: Text }) {
 
 	const getRelatedSearchTerms = async () => {
 		try {
+			// related search using thesaurus api
 			const response = await fetch(
 				`https://words.bighugelabs.com/api/2/000be8c22b800dc0c80121dd328cebb2/${searchQuery}/json`
 			);
@@ -127,10 +126,9 @@ export default function QuoteSearch({ text }: { text: Text }) {
 
 			const data = await response.json();
 
-			// The API returns data organized by part of speech (noun, verb, etc.)
 			const synonyms = new Set<string>();
 
-			// Loop through all parts of speech
+			// go through all parts of speech
 			// eslint-disable-next-line  @typescript-eslint/no-explicit-any
 			Object.values(data).forEach((partOfSpeech: any) => {
 				// Add synonyms if they exist
@@ -139,7 +137,6 @@ export default function QuoteSearch({ text }: { text: Text }) {
 				}
 			});
 
-			// Convert Set to Array
 			const uniqueSynonyms = Array.from(synonyms);
 
 			return uniqueSynonyms;
@@ -161,8 +158,7 @@ export default function QuoteSearch({ text }: { text: Text }) {
 		sentences.forEach((sentence, index) => {
 			const sentenceLower = sentence.toLowerCase();
 			synonyms.forEach((synonym) => {
-				// If we haven't found a quote for this term yet
-				// Handle strict search by properly typing the word array
+				// only find one per synonym
 				let foundMatch: boolean;
 				if (strictSearch) {
 					const words = sentence.toLowerCase().match(/\b\w+\b/g) || [];
@@ -173,7 +169,6 @@ export default function QuoteSearch({ text }: { text: Text }) {
 				}
 
 				if (!results.some((r) => r.term === synonym) && foundMatch) {
-					// Get context for this match
 					const start = Math.max(0, index - contextSize);
 					const end = Math.min(sentences.length, index + contextSize + 1);
 					const quote = sentences.slice(start, end).join(" ");

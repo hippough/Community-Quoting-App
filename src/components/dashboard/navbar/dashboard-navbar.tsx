@@ -25,14 +25,11 @@ export default function DashboardNavbar({ user }: { user: User }) {
 		async function fetchText() {
 			try {
 				setIsLoading(true);
-				// Reset title when navigating away from a text page
 				setTitle("");
 
-				// Parse the pathname to get textId
 				const pathParts = pathname.split("/");
 				const textId = pathParts[pathParts.length - 1];
 
-				// Only fetch if we're on a text page (you might want to adjust this condition)
 				if (!textId || pathname === "/dashboard") return;
 
 				const data = await getTextTitle({ textId });
@@ -48,14 +45,12 @@ export default function DashboardNavbar({ user }: { user: User }) {
 			}
 		}
 
-		// Fetch immediately when pathname changes
 		fetchText();
 
-		// Clean up function
 		return () => {
-			setTitle(""); // Reset title when component unmounts or pathname changes
+			setTitle("");
 		};
-	}, [pathname]); // Only depend on pathname
+	}, [pathname]);
 
 	return (
 		<nav className="fixed top-0 w-full z-50 border-b bg-background">
